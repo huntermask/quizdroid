@@ -1,6 +1,8 @@
 package edu.washington.hmask.quizdroid;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 
-import edu.washington.hmask.quizdroid.dummy.DummyContent;
 import edu.washington.hmask.quizdroid.dummy.QuizContent;
 
 /**
@@ -40,13 +42,21 @@ public class TopicDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
+        if (null != savedInstanceState) {
+            mItem = savedInstanceState.getParcelable("topic");
+        } else if (getArguments().containsKey(ARG_ITEM_ID)) {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
             mItem = QuizContent.topicMap.get(getArguments().getString(ARG_ITEM_ID));
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putParcelable("topic", mItem);
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
@@ -66,6 +76,12 @@ public class TopicDetailFragment extends Fragment {
             questionCountLabel.setText(Integer.toString(mItem.getQuestions().size()) + (mItem.getQuestions().size() == 1 ? " question" : " questions"));
 
             Button beginTopicButton = (Button) detailView.findViewById(R.id.beginTopicButton);
+            beginTopicButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startQuiz();
+                }
+            });
             if (mItem.getQuestions().size() == 0) {
                 beginTopicButton.setEnabled(false);
             }
@@ -73,5 +89,13 @@ public class TopicDetailFragment extends Fragment {
         }
 
         return detailView;
+    }
+
+    public void startQuiz() {
+        Intent startQuizIntent = new Intent(this.getActivity(), QuestionActivity.class);
+        startQuizIntent.putParcelableArrayListExtra("remainingQuestions", new ArrayList<>(mItem.getQuestions()));
+        startQuizIntent.putExtra("totalCount", 0);
+        startQuizIntent.putExtra("correctCount", 0);
+        startActivity(startQuizIntent);
     }
 }

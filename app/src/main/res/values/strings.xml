@@ -7,4 +7,9 @@
     <string name="title_topic_detail">Topic Detail</string>
     <string name="begin_text">Begin</string>
     <string name="description_label">Description</string>
+    <string name="title_activity_quiz">Question</string>
+    <string name="submit_button_text">Submit</string>
+    <string name="title_activity_answer">Answer</string>
+    <string name="your_answer_text">Your Answer:</string>
+    <string name="correct_answer_text">Correct Answer:</string>
 </resources>
