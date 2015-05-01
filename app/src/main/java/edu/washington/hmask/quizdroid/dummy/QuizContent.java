@@ -19,7 +19,7 @@ public class QuizContent {
 
     static {
         Topic mathTopic = new Topic("Math", "The study of numbers.");
-        mathTopic.getQuestions().add(new Question("What is 2 + 2?", new ArrayList<>(Arrays.asList(new String[] {"1", "2", "3", "4"})), 1));
+        mathTopic.getQuestions().add(new Question("What is 2 + 2?", new ArrayList<>(Arrays.asList(new String[] {"1", "2", "3", "4"})), 3));
         mathTopic.getQuestions().add(new Question("What is 3 + 3?", new ArrayList<>(Arrays.asList(new String [] {"3", "4", "5", "6"})), 3));
         addItem("1", mathTopic);
         addItem("2", new Topic("Physics", "The study of the known universe."));

@@ -1,6 +1,5 @@
 package edu.washington.hmask.quizdroid;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +17,7 @@ import edu.washington.hmask.quizdroid.dummy.QuizContent;
 /**
  * A fragment representing a single Topic detail screen.
  * This fragment is either contained in a {@link TopicListActivity}
- * in two-pane mode (on tablets) or a {@link TopicDetailActivity}
+ * in two-pane mode (on tablets) or a {@link QuizActivity}
  * on handsets.
  */
 public class TopicDetailFragment extends Fragment {
@@ -46,16 +45,19 @@ public class TopicDetailFragment extends Fragment {
         if (null != savedInstanceState) {
             mItem = savedInstanceState.getParcelable("topic");
         } else if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
             mItem = QuizContent.topicMap.get(getArguments().getString(ARG_ITEM_ID));
         }
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mItem = QuizContent.topicMap.get(getArguments().getString(ARG_ITEM_ID));
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putParcelable("topic", mItem);
+        savedInstanceState.putParcelable("topic", QuizContent.topicMap.get(getArguments().getString(ARG_ITEM_ID)));
 
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -93,12 +95,14 @@ public class TopicDetailFragment extends Fragment {
     }
 
     public void startQuiz() {
-        
+
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
+        ft.setCustomAnimations(R.animator.enter_from_right, R.animator.exit_to_left);
+
         QuestionFragment questionFragment = new QuestionFragment();
-        questionFragment.setRemainingQuestions(mItem.getQuestions());
+        questionFragment.setRemainingQuestions(new ArrayList<Question>(mItem.getQuestions()));
         questionFragment.setTotalCount(0);
         questionFragment.setCorrectCount(0);
 

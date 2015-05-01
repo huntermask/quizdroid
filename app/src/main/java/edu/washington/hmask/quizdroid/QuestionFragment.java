@@ -42,7 +42,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View questionView = inflater.inflate(R.layout.activity_question, container, false);
+        View questionView = inflater.inflate(R.layout.fragment_question, container, false);
 
         setCurrentQuestion(getRemainingQuestions().remove(0));
 
@@ -91,6 +91,8 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+
+        ft.setCustomAnimations(R.animator.enter_from_right, R.animator.exit_to_left);
 
         AnswerFragment answerFragment = new AnswerFragment();
         answerFragment.setRemainingQuestions(getRemainingQuestions());

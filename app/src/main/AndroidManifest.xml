@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TopicDetailActivity"
+            android:name=".QuizActivity"
             android:label="@string/title_topic_detail"
             android:parentActivityName=".TopicListActivity" >
             <meta-data

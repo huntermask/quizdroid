@@ -52,6 +52,8 @@ public class AnswerFragment extends Fragment {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
+        ft.setCustomAnimations(R.animator.enter_from_right, R.animator.exit_to_left);
+
         QuestionFragment questionFragment = new QuestionFragment();
         questionFragment.setRemainingQuestions(remainingQuestions);
         questionFragment.setTotalCount(totalCount);
@@ -67,7 +69,7 @@ public class AnswerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View answerView = inflater.inflate(R.layout.activity_answer, container, false);
+        View answerView = inflater.inflate(R.layout.fragment_answer, container, false);
 
         TextView yourAnswerTextView = (TextView) answerView.findViewById(R.id.yourAnswerTextView);
         yourAnswerTextView.setText(getCurrentQuestion().getAnswers().get(getSelectedIndex()));

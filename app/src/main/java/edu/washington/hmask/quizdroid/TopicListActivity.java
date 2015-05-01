@@ -2,7 +2,6 @@ package edu.washington.hmask.quizdroid;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 
 
@@ -10,7 +9,7 @@ import android.support.v7.app.ActionBarActivity;
  * An activity representing a list of Topics. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link TopicDetailActivity} representing
+ * lead to a {@link QuizActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  * <p/>
@@ -74,7 +73,7 @@ public class TopicListActivity extends ActionBarActivity
         } else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
-            Intent detailIntent = new Intent(this, TopicDetailActivity.class);
+            Intent detailIntent = new Intent(this, QuizActivity.class);
             detailIntent.putExtra(TopicDetailFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }
