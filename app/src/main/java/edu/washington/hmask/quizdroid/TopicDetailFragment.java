@@ -105,6 +105,7 @@ public class TopicDetailFragment extends Fragment {
         questionFragment.setRemainingQuestions(new ArrayList<Question>(mItem.getQuestions()));
         questionFragment.setTotalCount(0);
         questionFragment.setCorrectCount(0);
+        questionFragment.setCurrentQuestion(questionFragment.getRemainingQuestions().remove(0));
 
         ft.replace(getId(), questionFragment);
 

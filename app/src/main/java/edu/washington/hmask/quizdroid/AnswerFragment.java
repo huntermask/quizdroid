@@ -69,6 +69,7 @@ public class AnswerFragment extends Fragment {
         questionFragment.setRemainingQuestions(remainingQuestions);
         questionFragment.setTotalCount(totalCount);
         questionFragment.setCorrectCount(correctCount);
+        questionFragment.setCurrentQuestion(remainingQuestions.remove(0));
 
         ft.replace(getId(), questionFragment);
 

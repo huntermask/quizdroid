@@ -36,6 +36,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             remainingQuestions = savedInstanceState.getParcelableArrayList("remainingQuestions");
             setCorrectCount(savedInstanceState.getInt("correctCount"));
             setTotalCount(savedInstanceState.getInt("totalCount"));
+            setCurrentQuestion((Question) savedInstanceState.getParcelable("currentQuestion"));
         }
 
     }
@@ -46,14 +47,13 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         outState.putParcelableArrayList("remainingQuestions", new ArrayList<Parcelable>(remainingQuestions));
         outState.putInt("correctCount", correctCount);
         outState.putInt("totalCount", totalCount);
+        outState.putParcelable("currentQuestion", currentQuestion);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View questionView = inflater.inflate(R.layout.fragment_question, container, false);
-
-        setCurrentQuestion(getRemainingQuestions().remove(0));
 
         TextView questionTextView = (TextView) questionView.findViewById(R.id.questionTextView);
         questionTextView.setText(getCurrentQuestion().getText());
@@ -77,7 +77,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         optionFour.setOnClickListener(this);
 
         Button submitButton = (Button) questionView.findViewById(R.id.submitButton);
-        submitButton.setEnabled(false);
+        submitButton.setEnabled(options.getCheckedRadioButtonId() != -1);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +117,21 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getClass().equals(RadioButton.class)) {
+        RadioGroup options = (RadioGroup) getView().findViewById(R.id.options);
+
+        if (options.getCheckedRadioButtonId() != -1) {
+            Button submitButton = (Button) getView().findViewById(R.id.submitButton);
+            submitButton.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        RadioGroup options = (RadioGroup) getView().findViewById(R.id.options);
+
+        if (options.getCheckedRadioButtonId() != -1) {
             Button submitButton = (Button) getView().findViewById(R.id.submitButton);
             submitButton.setEnabled(true);
         }
