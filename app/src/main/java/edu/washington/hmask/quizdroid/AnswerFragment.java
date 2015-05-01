@@ -1,5 +1,6 @@
 package edu.washington.hmask.quizdroid;
 
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
@@ -39,6 +40,16 @@ public class AnswerFragment extends Fragment {
             setSelectedIndex(savedInstanceState.getInt("selectedIndex"));
         }
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("remainingQuestions", new ArrayList<Parcelable>(remainingQuestions));
+        outState.putInt("correctCount", correctCount);
+        outState.putInt("totalCount", totalCount);
+        outState.putParcelable("currentQuestion", currentQuestion);
+        outState.putInt("selectedIndex", selectedIndex);
     }
 
     public void returnToMenu() {

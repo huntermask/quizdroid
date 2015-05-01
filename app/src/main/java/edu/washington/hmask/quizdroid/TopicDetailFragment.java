@@ -1,6 +1,7 @@
 package edu.washington.hmask.quizdroid;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -57,7 +58,7 @@ public class TopicDetailFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putParcelable("topic", QuizContent.topicMap.get(getArguments().getString(ARG_ITEM_ID)));
+        savedInstanceState.putParcelable("topic", mItem);
 
         super.onSaveInstanceState(savedInstanceState);
     }

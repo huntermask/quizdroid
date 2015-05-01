@@ -1,5 +1,6 @@
 package edu.washington.hmask.quizdroid;
 
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -37,6 +38,14 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             setTotalCount(savedInstanceState.getInt("totalCount"));
         }
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("remainingQuestions", new ArrayList<Parcelable>(remainingQuestions));
+        outState.putInt("correctCount", correctCount);
+        outState.putInt("totalCount", totalCount);
     }
 
     @Override
