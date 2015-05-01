@@ -25,11 +25,11 @@
                 android:value="edu.washington.hmask.quizdroid.TopicListActivity" />
         </activity>
         <activity
-            android:name=".QuestionActivity"
+            android:name=".QuestionFragment"
             android:label="@string/title_activity_quiz" >
         </activity>
         <activity
-            android:name=".AnswerActivity"
+            android:name=".AnswerFragment"
             android:label="@string/title_activity_answer" >
         </activity>
     </application>

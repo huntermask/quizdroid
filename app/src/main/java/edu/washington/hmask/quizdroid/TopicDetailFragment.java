@@ -2,8 +2,9 @@ package edu.washington.hmask.quizdroid;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,10 +93,22 @@ public class TopicDetailFragment extends Fragment {
     }
 
     public void startQuiz() {
-        Intent startQuizIntent = new Intent(this.getActivity(), QuestionActivity.class);
+        /*Intent startQuizIntent = new Intent(this.getActivity(), QuestionFragment.class);
         startQuizIntent.putParcelableArrayListExtra("remainingQuestions", new ArrayList<>(mItem.getQuestions()));
         startQuizIntent.putExtra("totalCount", 0);
         startQuizIntent.putExtra("correctCount", 0);
-        startActivity(startQuizIntent);
+        startActivity(startQuizIntent);*/
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
+        QuestionFragment questionFragment = new QuestionFragment();
+        questionFragment.setRemainingQuestions(mItem.getQuestions());
+        questionFragment.setTotalCount(0);
+        questionFragment.setCorrectCount(0);
+
+        ft.replace(getId(), questionFragment);
+
+        ft.commit();
     }
 }
