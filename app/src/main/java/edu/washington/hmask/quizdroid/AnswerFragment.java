@@ -29,28 +29,15 @@ public class AnswerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_answer);
 
         if (savedInstanceState != null) {
-            // The activity was resumed
+            // If the activity was resumed
             remainingQuestions = savedInstanceState.getParcelableArrayList("remainingQuestions");
             setCorrectCount(savedInstanceState.getInt("correctCount"));
             setTotalCount(savedInstanceState.getInt("totalCount"));
             setCurrentQuestion((Question) savedInstanceState.getParcelable("currentQuestion"));
             setSelectedIndex(savedInstanceState.getInt("selectedIndex"));
-        } /*else {
-            // The activity came from an intent/previous activity
-            Bundle extras = getIntent().getExtras();
-            if (extras != null) {
-                remainingQuestions = extras.getParcelableArrayList("remainingQuestions");
-                correctCount = extras.getInt("correctCount");
-                totalCount = extras.getInt("totalCount");
-                currentQuestion = extras.getParcelable("currentQuestion");
-                selectedIndex = extras.getInt("selectedIndex");
-            }
-        }*/
-
-
+        }
 
     }
 
@@ -61,11 +48,7 @@ public class AnswerFragment extends Fragment {
     }
 
     public void loadNextQuestion() {
-        /*Intent i = new Intent(this, QuestionFragment.class);
-        i.putParcelableArrayListExtra("remainingQuestions", (ArrayList)remainingQuestions);
-        i.putExtra("totalCount", totalCount);
-        i.putExtra("correctCount", correctCount);
-        startActivity(i);*/
+
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
@@ -75,7 +58,6 @@ public class AnswerFragment extends Fragment {
         questionFragment.setCorrectCount(correctCount);
 
         ft.replace(getId(), questionFragment);
-
 
         ft.commit();
 

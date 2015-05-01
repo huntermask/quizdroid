@@ -29,23 +29,13 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_question);
 
         if (savedInstanceState != null) {
-            // The activity was resumed
+            // If the activity was resumed
             remainingQuestions = savedInstanceState.getParcelableArrayList("remainingQuestions");
             setCorrectCount(savedInstanceState.getInt("correctCount"));
             setTotalCount(savedInstanceState.getInt("totalCount"));
-        }/* else {
-            // The activity came from an intent/previous activity
-            Bundle extras = getIntent().getExtras();
-            if (extras != null) {
-                remainingQuestions = extras.getParcelableArrayList("remainingQuestions");
-                correctCount = extras.getInt("correctCount");
-                totalCount = extras.getInt("totalCount");
-            }
-        }*/
-
+        }
 
     }
 
@@ -112,14 +102,6 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         ft.replace(getId(), answerFragment);
 
         ft.commit();
-
-        /*Intent i = new Intent(this, AnswerFragment.class);
-        i.putParcelableArrayListExtra("remainingQuestions", (ArrayList)remainingQuestions);
-        i.putExtra("totalCount", totalCount);
-        i.putExtra("correctCount", correctCount);
-        i.putExtra("currentQuestion", currentQuestion);
-        i.putExtra("selectedIndex", selectedIndex);
-        startActivity(i);*/
     }
 
     @Override

@@ -93,12 +93,7 @@ public class TopicDetailFragment extends Fragment {
     }
 
     public void startQuiz() {
-        /*Intent startQuizIntent = new Intent(this.getActivity(), QuestionFragment.class);
-        startQuizIntent.putParcelableArrayListExtra("remainingQuestions", new ArrayList<>(mItem.getQuestions()));
-        startQuizIntent.putExtra("totalCount", 0);
-        startQuizIntent.putExtra("correctCount", 0);
-        startActivity(startQuizIntent);*/
-
+        
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
