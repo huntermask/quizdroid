@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
+import java.util.List;
+
 import edu.washington.hmask.quizdroid.dummy.DummyContent;
 import edu.washington.hmask.quizdroid.dummy.QuizContent;
 
@@ -21,6 +23,8 @@ import edu.washington.hmask.quizdroid.dummy.QuizContent;
  * interface.
  */
 public class TopicListFragment extends ListFragment {
+
+    private List<Topic> topics;
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -38,6 +42,10 @@ public class TopicListFragment extends ListFragment {
      * The current activated item position. Only used on tablets.
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
+
+    public List<Topic> getTopics() {
+        return topics;
+    }
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -75,7 +83,7 @@ public class TopicListFragment extends ListFragment {
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                QuizContent.topics));
+                ((QuizApp)getActivity().getApplication()).getTopics()));
     }
 
     @Override
@@ -115,12 +123,7 @@ public class TopicListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        Topic selectedTopic = QuizContent.topics.get(position);
-        for (String key : QuizContent.topicMap.keySet()) {
-            if (QuizContent.topicMap.get(key).equals(selectedTopic)) {
-                mCallbacks.onItemSelected(key);
-            }
-        }
+        mCallbacks.onItemSelected(Integer.toString(position));
 
     }
 

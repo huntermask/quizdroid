@@ -45,14 +45,14 @@ public class TopicDetailFragment extends Fragment {
         if (null != savedInstanceState) {
             mItem = savedInstanceState.getParcelable("topic");
         } else if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItem = QuizContent.topicMap.get(getArguments().getString(ARG_ITEM_ID));
+            mItem = ((QuizApp) getActivity().getApplication()).getTopics().get(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mItem = QuizContent.topicMap.get(getArguments().getString(ARG_ITEM_ID));
+        mItem = ((QuizApp) getActivity().getApplication()).getTopics().get(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
     }
 
     @Override
