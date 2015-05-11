@@ -18,22 +18,21 @@ import java.util.List;
  */
 public class TopicRepositoryImpl implements TopicRepository {
 
-    public List<Topic> getTopics() {
+    private List<Topic> topics = new ArrayList<>();
+
+    public TopicRepositoryImpl(InputStream is) {
         try {
-            InputStream is = new FileInputStream("data/questions.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
             is.close();
             String jsonString = new String(buffer, "UTF-8");
             JSONArray json = new JSONArray(jsonString);
-
-            List<Topic> topicList = new ArrayList<>();
             for (int i = 0; i < json.length(); i++) {
                 // Parse each Topic from the array
 
                 JSONObject topicJson = json.getJSONObject(i);
-                Topic t = new Topic(topicJson.getString("title"), topicJson.getString("desc"));
+                Topic t = new Topic(topicJson.getString("title"), topicJson.getString("desc"), topicJson.getString("desc"));
                 JSONArray questionsJson = topicJson.getJSONArray("questions");
                 List<Question> questionList = new ArrayList<>();
                 for (int j = 0; j < questionsJson.length(); j++) {
@@ -53,14 +52,18 @@ public class TopicRepositoryImpl implements TopicRepository {
                 }
 
                 t.getQuestions().addAll(questionList);
-                topicList.add(t);
+                topics.add(t);
             }
-
-            return topicList;
         } catch (IOException | JSONException ex) {
-            Log.e("TopicRepositoryImpl", "Unable to load questions file: " + ex.getMessage());
+            Log.e("TopicRepositoryImpl", "An exception occurred: " + ex.getMessage());
         }
+    }
 
-        return null;
+    public TopicRepositoryImpl() {
+
+    }
+
+    public List<Topic> getTopics() {
+        return topics;
     }
 }

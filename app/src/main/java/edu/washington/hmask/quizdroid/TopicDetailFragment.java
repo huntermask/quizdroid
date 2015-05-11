@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import edu.washington.hmask.quizdroid.dummy.QuizContent;
-
 /**
  * A fragment representing a single Topic detail screen.
  * This fragment is either contained in a {@link TopicListActivity}
@@ -73,7 +71,7 @@ public class TopicDetailFragment extends Fragment {
             topicLabel.setText(mItem.getName());
 
             TextView descriptionLabel = (TextView) detailView.findViewById(R.id.descriptionText);
-            descriptionLabel.setText(mItem.getDescription());
+            descriptionLabel.setText(mItem.getLongDescription());
 
             TextView questionCountLabel = (TextView) detailView.findViewById(R.id.numberQuestionsLabel);
             questionCountLabel.setText(Integer.toString(mItem.getQuestions().size()) + (mItem.getQuestions().size() == 1 ? " question" : " questions"));

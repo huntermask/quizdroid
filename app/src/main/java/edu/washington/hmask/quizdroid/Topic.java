@@ -14,22 +14,24 @@ import java.util.List;
 public class Topic implements Parcelable {
 
     private String name;
-    private String description;
+    private String shortDescription;
+    private String longDescription;
     private List<Question> questions = new ArrayList<>();
 
-    public Topic(String name, String description, Collection<Question> questions) {
+    public Topic(String name, String shortDescription, String longDescription, Collection<Question> questions) {
         this.name = name;
-        this.description = description;
+        this.shortDescription = shortDescription;
+        this.longDescription = longDescription;
         this.questions.addAll(questions);
     }
 
-    public Topic(String name, String description) {
-        this(name, description, new ArrayList<Question>());
+    public Topic(String name, String shortDescription, String longDescription) {
+        this(name, shortDescription, longDescription, new ArrayList<Question>());
     }
 
     public Topic(Parcel in) {
         name = in.readString();
-        description = in.readString();
+        shortDescription = in.readString();
         questions = Arrays.asList((Question[])in.readParcelableArray(null));
     }
 
@@ -41,7 +43,7 @@ public class Topic implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        dest.writeString(description);
+        dest.writeString(shortDescription);
         Question[] qArray = new Question[questions.size()];
         dest.writeParcelableArray(questions.toArray(qArray), flags);
     }
@@ -68,12 +70,20 @@ public class Topic implements Parcelable {
         return questions;
     }
 
-    public String getDescription() {
-        return description;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
     }
 
     @Override

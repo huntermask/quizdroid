@@ -4,14 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import edu.washington.hmask.quizdroid.dummy.DummyContent;
-import edu.washington.hmask.quizdroid.dummy.QuizContent;
+import java.util.Map;
 
 /**
  * A list fragment representing a list of Topics. This fragment
@@ -79,11 +79,19 @@ public class TopicListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new ArrayAdapter(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                ((QuizApp)getActivity().getApplication()).getTopics()));
+        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+        for (Topic topic : ((QuizApp) getActivity().getApplication()).getTopics()) {
+            Map<String, String> datum = new HashMap<String, String>(2);
+            datum.put("topic", topic.getName());
+            datum.put("description", topic.getShortDescription());
+            data.add(datum);
+        }
+        SimpleAdapter adapter = new SimpleAdapter(getActivity(), data,
+                android.R.layout.simple_list_item_2,
+                new String[] {"topic", "description"},
+                new int[] {android.R.id.text1,
+                        android.R.id.text2});
+        setListAdapter(adapter);
     }
 
     @Override
