@@ -1,5 +1,6 @@
 package edu.washington.hmask.quizdroid;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -7,6 +8,10 @@ import java.util.List;
  */
 public interface TopicRepository {
 
-    public List<Topic> getTopics();
+    List<Topic> getTopics();
+
+    void setTopics(List<Topic> topics);
+
+    void setTopics(InputStream is);
 
 }

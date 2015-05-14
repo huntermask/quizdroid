@@ -21,6 +21,22 @@ public class TopicRepositoryImpl implements TopicRepository {
     private List<Topic> topics = new ArrayList<>();
 
     public TopicRepositoryImpl(InputStream is) {
+        setTopics(is);
+    }
+
+    public TopicRepositoryImpl() {
+
+    }
+
+    public List<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
+    }
+
+    public void setTopics(InputStream is) {
         try {
             int size = is.available();
             byte[] buffer = new byte[size];
@@ -57,13 +73,5 @@ public class TopicRepositoryImpl implements TopicRepository {
         } catch (IOException | JSONException ex) {
             Log.e("TopicRepositoryImpl", "An exception occurred: " + ex.getMessage());
         }
-    }
-
-    public TopicRepositoryImpl() {
-
-    }
-
-    public List<Topic> getTopics() {
-        return topics;
     }
 }

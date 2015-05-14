@@ -1,0 +1,17 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
+         dismiss it. -->
+    <EditTextPreference
+        android:key="sync_frequency"
+        android:title="@string/pref_title_sync_frequency"
+        android:defaultValue="5"
+        android:inputType="number"/>
+    <EditTextPreference
+        android:key="sync_url"
+        android:title="@string/pref_title_sync_url"
+        android:defaultValue="http://tednewardsandbox.site44.com/questions.json"
+        android:inputType="textUri" />
+
+
+</PreferenceScreen>

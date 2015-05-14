@@ -13,7 +13,7 @@ public class QuizApp extends Application {
 
     private final String LOG_TAG = "QuizApp";
 
-    private TopicRepository topics = new TopicRepositoryImpl();
+    TopicRepository topics = new TopicRepositoryImpl();
 
     private static QuizApp ourInstance = null;
 
