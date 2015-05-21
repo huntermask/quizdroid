@@ -1,7 +1,9 @@
 package edu.washington.hmask.quizdroid;
 
+import android.app.DownloadManager;
 import android.app.IntentService;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.widget.Toast;
 
@@ -23,6 +25,9 @@ public class UpdateService extends IntentService {
         h.post(new Runnable() {
             @Override
             public void run() {
+                DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                dm.enqueue(request);
                 Toast.makeText(getApplicationContext(), url, Toast.LENGTH_LONG).show();
             }
         });

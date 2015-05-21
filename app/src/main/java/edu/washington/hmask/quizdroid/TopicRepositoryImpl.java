@@ -38,12 +38,7 @@ public class TopicRepositoryImpl implements TopicRepository {
 
     public void setTopics(InputStream is) {
         try {
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            String jsonString = new String(buffer, "UTF-8");
-            JSONArray json = new JSONArray(jsonString);
+            JSONArray json = new JSONArray(SharedUtilities.inputStreamToString(is));
             for (int i = 0; i < json.length(); i++) {
                 // Parse each Topic from the array
 
@@ -70,8 +65,8 @@ public class TopicRepositoryImpl implements TopicRepository {
                 t.getQuestions().addAll(questionList);
                 topics.add(t);
             }
-        } catch (IOException | JSONException ex) {
-            Log.e("TopicRepositoryImpl", "An exception occurred: " + ex.getMessage());
+        } catch (JSONException ex) {
+            Log.e(SharedUtilities.LOG_TAG, "An exception occurred: " + ex.getMessage());
         }
     }
 }
