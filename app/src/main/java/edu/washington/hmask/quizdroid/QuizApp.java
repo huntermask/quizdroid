@@ -1,14 +1,19 @@
 package edu.washington.hmask.quizdroid;
 
+import android.app.AlertDialog;
 import android.app.Application;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.ParcelFileDescriptor;
+import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -55,7 +60,6 @@ public class QuizApp extends Application {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-
             DownloadManager dm = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
 
             Log.i("MyApp BroadcastReceiver", "onReceive of registered download reciever");
@@ -69,7 +73,7 @@ public class QuizApp extends Application {
                     // Check status
                     DownloadManager.Query query = new DownloadManager.Query();
                     query.setFilterById(downloadID);
-                    Cursor c = dm.query(query);
+                    final Cursor c = dm.query(query);
                     if(c.moveToFirst()) {
                         int status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
                         switch(status) {
@@ -91,6 +95,7 @@ public class QuizApp extends Application {
                                         fos.write(fileString.getBytes());
                                         fos.close();
                                         topics = new TopicRepositoryImpl(openFileInput("questions.json"));
+                                        Toast.makeText(getApplicationContext(), "topics reloaded", Toast.LENGTH_LONG).show();
                                     }
                                     catch (IOException e) {
                                         Log.e(SharedUtilities.LOG_TAG, "File write failed: " + e.toString());
@@ -100,7 +105,10 @@ public class QuizApp extends Application {
                                 }
                                 break;
                             case DownloadManager.STATUS_FAILED:
-                                // YOUR CODE HERE! Your download has failed! Now what do you want it to do? Retry? Quit application? up to you!
+                                Intent i = new Intent(getApplicationContext(), DownloadFailedDialogActivity.class);
+                                i.putExtra("url", c.getString(c.getColumnIndex(DownloadManager.COLUMN_URI)));
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(i);
                                 break;
                         }
                     }
