@@ -26,12 +26,14 @@ public class AirplaneModeDialogActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS));
+                        finish();
                     }
                 })
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // User selected close
+                        finish();
                     }
                 })
                 .show();

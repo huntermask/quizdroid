@@ -25,6 +25,7 @@ public class DownloadFailedDialogActivity extends Activity {
                         DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(getIntent().getStringExtra("url")));
                         dm.enqueue(request);
+                        finish();
                     }
                 })
                 .setNegativeButton("Quit", new DialogInterface.OnClickListener() {
