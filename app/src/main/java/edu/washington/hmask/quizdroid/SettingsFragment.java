@@ -61,7 +61,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         pi = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 0,
                 i,
                 PendingIntent.FLAG_CANCEL_CURRENT);
-        long interval = Long.parseLong(syncFrequencyPreference.getSummary().toString()) * 1000;
+        long interval = Long.parseLong(syncFrequencyPreference.getSummary().toString()) * 60 * 1000;
         alarmManager.setRepeating(AlarmManager.RTC, Calendar.getInstance().getTimeInMillis() + interval, interval, pi);
     }
 
